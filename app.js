@@ -10,6 +10,9 @@ const restList = require('./restaurant.json')
 
 const Restaurant = require('./models/restaurant') // 載入 restaurant model
 
+// 載入 method-override
+const methodOverride = require('method-override')
+
 mongoose.connect('mongodb://localhost/Restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
 
 // 取得資料庫連線狀態
@@ -29,13 +32,15 @@ app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(methodOverride('_method'))
+
 
 //setting static files
 app.use(express.static('public'))
 
 
 
-// ...
+// index
 app.get('/', (req, res) => {
   // 取出 Restaurant model 裡的所有資料
   Restaurant.find()
@@ -55,7 +60,7 @@ app.get('/restaurants/:id', (req, res) => {
 })
 
 //edit
-app.get('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
@@ -64,7 +69,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 })
 
 //edit
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const name = req.body.name
   return Restaurant.findById(id)
@@ -77,7 +82,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 //delete
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())

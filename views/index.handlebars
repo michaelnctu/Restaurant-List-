@@ -29,6 +29,7 @@
       <div class="col-md-10 col-12 mx-auto">
         <div class="card-columns">
           {{#each restaurants}}
+
           <a href="./restaurants/{{this._id}}/show" class="text-secondary">
             <div class="card mb-3">
               <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
@@ -44,8 +45,8 @@
                   <i class="fas fa-star fa-xs"></i>
                 </span>
                 <a href="./restaurants/{{ this._id }}">detail</a>
-                <a href="./restaurants/{{ this._id }}/edit">edit</a> <!-- 避免路由重複 -->
-                <form action="./restaurants/{{ this._id }}/delete" method="POST" style="display: inline">
+                <a href="./restaurants/{{ this._id }}?_method=PUT">edit</a> <!-- 避免路由重複 -->
+                <form action="./restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline">
                   <button type="submit"> delete </button>
                 </form>
 
