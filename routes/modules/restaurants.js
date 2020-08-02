@@ -4,6 +4,7 @@ const router = express.Router()
 
 const Restaurant = require('../../models/restaurant') // 載入 restaurant model
 
+
 //detail
 router.get('/:id', (req, res) => {
   const id = req.params.id
@@ -46,7 +47,7 @@ router.delete('/:id', (req, res) => {
 
 
 //點擊圖片
-router.get('/restaurants/:id/show', (req, res) => {
+router.get('/:id', (req, res) => {
   // console.log(req.params.restaurant_id)
   const id = req.params.id
   return Restaurant.findById(id)
@@ -55,13 +56,6 @@ router.get('/restaurants/:id/show', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//search bar
-router.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
-})
+
 
 module.exports = router
