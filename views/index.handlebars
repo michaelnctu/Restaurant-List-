@@ -1,22 +1,10 @@
 <!-- ./views/index.handlebars -->
 {{!-- restaurants --}}
 
+
+<!-- 篩選 -->
 <div class="container mt-5">
 
-
-  {{!-- drop down panel --}}
-  {{!-- <div class="dropdown row mx-0 my-0">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      {{#if sortKeyword}} {{sortKeyword}} {{else}} 排序 {{/if}}
-    </button>
-
-    <form action="/sort" class="dropdown-menu row justify-content-center sortForm" aria-labelledby="dropdownMenuLink">
-      <input class="inputTagNoneStyle" type="submit" name="keyword" value="A -> Z">
-      <input class="inputTagNoneStyle" type="submit" name="keyword" value="Z -> A">
-      <input class="inputTagNoneStyle" type="submit" name="keyword" value="類別">
-      <input class="inputTagNoneStyle" type="submit" name="keyword" value="地區">
-  </div> --}}
 
   <div class="dropdown">
     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -74,11 +62,15 @@
               </div>
 
               <span class="badge badge-pill badge-danger font-weight-normal">
-                4.1
+                {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
-              <a href="./restaurants/{{ this._id }}">detail</a>
+
+
+              <a href="./restaurants/{{ this._id }}/detail">detail</a>
+
               <a href="./restaurants/{{ this._id }}?_method=PUT">edit</a> <!-- 避免路由重複 -->
+
               <form action="./restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline">
 
                 <button type="submit"> delete </button>

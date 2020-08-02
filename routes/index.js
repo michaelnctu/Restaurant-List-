@@ -17,7 +17,9 @@ const sort = require('./modules/sort.js')
 
 // 將網址結構符合 / 字串的 request 導向 home 模組 
 router.use('/', home)
+
 router.use('/restaurants', restaurants)
+
 router.use('/search', search)
 router.use('/', sort)
 
