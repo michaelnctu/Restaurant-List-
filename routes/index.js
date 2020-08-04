@@ -9,10 +9,10 @@ const restaurants = require('./modules/restaurants')
 const home = require('./modules/home')
 
 // 引入 search 模組程式碼
-const search = require('./modules/search.js')
+const search = require('./modules/search')
 
 // 引入 sort 模組程式碼
-const sort = require('./modules/sort.js')
+const sort = require('./modules/sort')
 
 
 // 將網址結構符合 / 字串的 request 導向 home 模組 
