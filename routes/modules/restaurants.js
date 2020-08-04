@@ -15,7 +15,7 @@ router.get('/create', (req, res) => {
 router.post('/', (req, res) => {
   const { name, image, location, phone } = req.body
   return Restaurant.create(req.body)
-    .then(() => res.redirect('/'))
+    .then(() => res.redirect('/')) //回到根目錄
     .catch(error => console.log(error))
 
 })
@@ -44,22 +44,20 @@ router.get('/:id/edit', (req, res) => {
 router.put('/:id', (req, res) => {
   const id = req.params.id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
-
-
   return Restaurant.findById(id)
     .then(restaurant => {
-      restaurant.name = name,
-        restaurant.name_en = name_en
+      restaurant.name = name
+      restaurant.name_en = name_en
       restaurant.category = category
       restaurant.image = image
       restaurant.location = location
       restaurant.phone = phone
-      restaurant.google_map = google_map,
-        restaurant.rating = rating
+      restaurant.google_map = google_map
+      restaurant.rating = rating
       restaurant.description = description
       return restaurant.save()
     })
-    .then(() => res.redirect('/restaurants/${id}'))
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
@@ -67,8 +65,8 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
-    .then(restaurant => restaurant.remove())
-    .then(restaurant => res.render('delete'))
+    .then(restaurant => console.log("id", restaurant))
+    // .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
