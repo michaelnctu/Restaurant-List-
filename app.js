@@ -5,7 +5,10 @@ const routes = require('./routes')
 
 const app = express()
 const exphbs = require('express-handlebars')  //handlebars
-const port = 3000
+
+// 如果在 Heroku 環境則使用 process.env.PORT
+// 否則為本地環境，使用 3000 
+const PORT = process.env.PORT || 3000
 
 
 const bodyParser = require('body-parser')
@@ -40,6 +43,7 @@ app.use(routes)
 
 
 // start and listen on the Express server
-app.listen(port, () => {
-  console.log(`Express is listening on http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Express is listening on http://localhost:${PORT}`)
 })
+
