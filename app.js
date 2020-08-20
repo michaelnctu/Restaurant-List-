@@ -1,5 +1,6 @@
 //使用express
 const express = require('express')
+const session = require('express-session')
 const app = express()
 
 // 引用路由器
@@ -27,6 +28,12 @@ require('./config/mongoose') //招喚config mongoose連線
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main', extname: '.handlebars' }))
 app.set('view engine', 'handlebars')
+
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
