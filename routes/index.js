@@ -14,14 +14,15 @@ const search = require('./modules/search')
 // 引入 sort 模組程式碼
 const sort = require('./modules/sort')
 
+const users = require('./modules/users')
+
 
 // 將網址結構符合 / 字串的 request 導向 home 模組 
 router.use('/', home)
-
 router.use('/restaurants', restaurants)
-
 router.use('/search', search)
 router.use('/', sort)
+router.use('/users', users)  // add this
 
 // 匯出路由器
 module.exports = router
