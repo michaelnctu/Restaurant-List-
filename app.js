@@ -2,6 +2,7 @@
 const express = require('express')
 const session = require('express-session')
 const app = express()
+const usePassport = require('./config/passport')
 
 // 引用路由器
 const routes = require('./routes')
@@ -42,6 +43,7 @@ app.use(methodOverride('_method'))
 //setting static files
 app.use(express.static('public'))
 
+usePassport(app)
 // 將 request 導入路由器
 app.use(routes)
 
