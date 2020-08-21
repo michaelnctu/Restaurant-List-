@@ -15,14 +15,15 @@ const search = require('./modules/search')
 const sort = require('./modules/sort')
 
 const users = require('./modules/users')
+const { authenticator } = require('../middleware/auth') // 掛載middleware
 
 
 // 將網址結構符合 / 字串的 request 導向 home 模組 
-router.use('/', home)
-router.use('/restaurants', restaurants)
-router.use('/search', search)
-router.use('/', sort)
-router.use('/users', users)  // add this
+
+router.use('/restaurants', authenticator, restaurants)
+router.use('/search', authenticator, search)
+router.use('/users', users)     // add this
+router.use('/', authenticator, home, sort)
 
 // 匯出路由器
 module.exports = router
