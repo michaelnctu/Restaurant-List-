@@ -44,7 +44,16 @@ app.use(methodOverride('_method'))
 app.use(express.static('public'))
 
 usePassport(app)
-// 將 request 導入路由器
+
+app.use((req, res, next) => {
+  console.log(req.user)
+  res.locals.isAuthenticated = req.isAuthenticated()  //把 req.isAuthenticated() 回傳的布林值，交接給 res 使用
+  res.locals.user = req.user
+  next()
+})
+
+
+
 app.use(routes)
 
 

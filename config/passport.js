@@ -7,6 +7,7 @@ const User = require('../models/user')
 module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
+
   // 設定本地登入策略
   passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
     User.findOne({ email })
