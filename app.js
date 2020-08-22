@@ -18,12 +18,14 @@ const PORT = process.env.PORT || 3000
 const bodyParser = require('body-parser')
 
 const restaurantList = require('./restaurant.json')
-
-
-
 // 載入 method-override
 const methodOverride = require('method-override')
 const flash = require('connect-flash')   // 引用套件
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 
 require('./config/mongoose') //招喚config mongoose連線
 

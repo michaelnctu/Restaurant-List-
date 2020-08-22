@@ -16,6 +16,7 @@ const sort = require('./modules/sort')
 
 const users = require('./modules/users')
 const { authenticator } = require('../middleware/auth') // 掛載middleware
+const auth = require('./modules/auth')
 
 
 // 將網址結構符合 / 字串的 request 導向 home 模組 
@@ -23,6 +24,7 @@ const { authenticator } = require('../middleware/auth') // 掛載middleware
 router.use('/restaurants', authenticator, restaurants)
 router.use('/search', authenticator, search)
 router.use('/users', users)     // add this
+router.use('/auth', auth)
 router.use('/', authenticator, home, sort)
 
 // 匯出路由器
