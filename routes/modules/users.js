@@ -10,18 +10,22 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
 
-  successRedirect: '/',
-  failureRedirect: '/users/login'
 
-}))
+  successRedirect: "/",
+  failureRedirect: "/users/login",
+  failureMessage: "Invalid username or password"
+
+
+}),
+)
 
 router.post('/register', (req, res) => {
 
-  const { email, name, password, confirmPassword } = req.body  //cliert端傳入
+  const { email, name, password, confirmPassword } = req.body  //client端傳入
 
   const errors = []
 
-  if (!name || !email || !password || !confirmPassword) {
+  if (!email || !password || !confirmPassword) {
     errors.push({ message: '所有欄位都是必填' })
   }
   if (password !== confirmPassword) {

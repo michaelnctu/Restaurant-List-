@@ -40,10 +40,11 @@ const restaurantSchema = new Schema({
   },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'user',  //models內的user
+    ref: 'User',  //models內的user
     index: true,
     required: true
   }
 
 })
 module.exports = mongoose.model('Restaurant', restaurantSchema)  //model 叫做Restaurant
+
