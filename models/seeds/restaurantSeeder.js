@@ -26,46 +26,61 @@ const SEED_USER = [{
 
 db.once('open', () => {
 
-  Promise.all(SEED_USER.forEach(element => {
-
+  SEED_USER.forEach(element => {
 
     bcrypt
       .genSalt(10)
       .then(salt => bcrypt.hash(element.password, salt))
       .then(hash => {
         console.log('成功', hash)
-        User.create({
-          name: element.name,
-          email: element.email,
-          password: hash
-        })
-      })
-
-
-      .then(user => {
-        console.log('執行成功', restaurantList.results[0])
-        const userId = user._id
-        console.log('執行成功', userId)
 
         return Promise.all(Array.from(
-          { length: 5 },
+          { length: 1 },
           (value, i) => {
-            const data = restaurantList.results[i] //data 為當前的object
-            data.userId = userId
-            console.log(data)
-            Restaurant.create(data) //key-value pair
+            User.create({
+              name: element.name,
+              email: element.email,
+              password: hash
+            })
           }
-        ))
+        )
+        )
+      })
+
+      .then(user => {
+        const userId = user._id
+
+        if (user.username === 'user1') {
+          const data1 = restaurantList.results.slice(0, 3)
+          return Promise.all(Array.from(
+            { length: 3 },
+            (value, i) => {
+              let data = data1[i] //data 為當前的object
+              data.userId = userId
+              console.log(data)
+              Restaurant.create(data) //key-value pair
+            }
+          ))
+
+        }
+        if ((user.username === 'user2')) {
+          const data2 = restaurantList.results.slice(4, 7)
+          return Promise.all(Array.from(
+            { length: 3 },
+            (value, i) => {
+              let data = data2[i] //data 為當前的object
+              data.userId = userId
+              console.log(data)
+              Restaurant.create(data) //key-value pair
+            }
+          ))
+        }
       })
 
   })
 
-  )
+  console.log('done')
 
-    .then(() => {
-      console.log('done')
-      process.exit()
-    })
 })
 
 
