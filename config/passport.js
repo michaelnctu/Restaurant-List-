@@ -10,21 +10,26 @@ module.exports = app => {
   app.use(passport.session())
 
   // 設定本地登入策略
-  passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-    User.findOne({ email })
-      .then(user => {
-        if (!user) {
-          return done(null, false, { message: 'That email is not registered!' })
-        }
-        return bcrypt.compare(password, user.password).then(isMatch => {
-          if (!isMatch) {
-            return done(null, false, { message: 'Email or Password incorrect.' })
+  passport.use(new LocalStrategy
+
+    // 這是 verify callback
+    ({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
+      User.findOne({ email })
+        .then(user => {
+          if (!user) {
+            return done(null, false, req.flash('error_messages', 'This email has not registerd!'))
           }
-          return done(null, user)
+          return bcrypt.compare(password, user.password).then(isMatch => {
+            if (!isMatch) {
+              return done(null, false, req.flash('error_messages', '密碼與email不符'))
+            }
+            return done(null, user) //沒有錯誤 附上使用者資訊
+          })
         })
-      })
-      .catch(err => done(err, false))
-  }))
+        .catch(err => done(err, false)) //錯誤處理
+    }))
+
+
 
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_ID,
@@ -66,3 +71,36 @@ module.exports = app => {
   })
 
 }
+
+
+// passport.use(
+//   new LocalStrategy(
+//     // customize user field，預設使用 username 和 password 作為驗證的欄位
+//     {
+//       usernameField: 'email',
+//       passReqToCallback: true, // 如果需要在 verify callback 中取得 req
+//     },
+//     // customize verify callback
+//     // 因為上面有註明 passReqToCallback: true，所以第一個參數會是 req
+//     async (req, email, password, done) => {
+//       try {
+//         const user = await User.findOne({ email: username });
+//         if (!user) {
+//           return done(null, false,
+//             // { message: 'Incorrect username.' }
+//             req.flash('error_messages', '不存在此email'),
+//           );
+//         }
+//         if (!bcrypt.compareSync(password, user.password)) {
+//           return done(null, false,
+//             // { message: 'Incorrect password.' }
+//             req.flash('error_messages', '帳號或密碼輸入錯誤'),
+//           );
+//         }
+//         return done(null, user, req.flash('success_messages', '登入成功'));
+//       } catch (error) {
+//         return done(error);
+//       }
+//     },
+//   ),
+// );

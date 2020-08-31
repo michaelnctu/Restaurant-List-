@@ -8,12 +8,12 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', passport.authenticate('local', {
+router.post('/login', passport.authenticate('local', {  //authenticate為passport提通的方法
 
 
   successRedirect: "/",
   failureRedirect: "/users/login",
-  failureMessage: "Invalid username or password"
+  failureFlash: true
 
 
 }),
