@@ -26,7 +26,7 @@ const SEED_USER = [{
 
 db.once('open', () => {
 
-  SEED_USER.forEach(element => {
+  SEED_USER.forEach(element => {   
 
     bcrypt
       .genSalt(10)

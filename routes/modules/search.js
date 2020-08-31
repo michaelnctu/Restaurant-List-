@@ -6,7 +6,8 @@ const restaurantSeed = require('../../models/restaurant.js')
 
 router.get('/', (req, res) => {
   const keyword = req.query.keyword.toLowerCase()
-  restaurantSeed.find().lean()
+  const userId = req.user._id
+  restaurantSeed.find({ userId }).lean()
     .then(restaurants => {
       const searchValue = restaurants.filter(restaurant => {
         return restaurant.name.includes(keyword) || restaurant.category.includes(keyword) ||
