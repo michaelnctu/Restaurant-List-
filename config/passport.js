@@ -73,34 +73,3 @@ module.exports = app => {
 }
 
 
-// passport.use(
-//   new LocalStrategy(
-//     // customize user field，預設使用 username 和 password 作為驗證的欄位
-//     {
-//       usernameField: 'email',
-//       passReqToCallback: true, // 如果需要在 verify callback 中取得 req
-//     },
-//     // customize verify callback
-//     // 因為上面有註明 passReqToCallback: true，所以第一個參數會是 req
-//     async (req, email, password, done) => {
-//       try {
-//         const user = await User.findOne({ email: username });
-//         if (!user) {
-//           return done(null, false,
-//             // { message: 'Incorrect username.' }
-//             req.flash('error_messages', '不存在此email'),
-//           );
-//         }
-//         if (!bcrypt.compareSync(password, user.password)) {
-//           return done(null, false,
-//             // { message: 'Incorrect password.' }
-//             req.flash('error_messages', '帳號或密碼輸入錯誤'),
-//           );
-//         }
-//         return done(null, user, req.flash('success_messages', '登入成功'));
-//       } catch (error) {
-//         return done(error);
-//       }
-//     },
-//   ),
-// );
